@@ -3,8 +3,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="MainWindow" Height="350" Width="525">
 	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="23*"/>
+			<ColumnDefinition Width="24*"/>
+		</Grid.ColumnDefinitions>
 		<Button Content="Button" HorizontalAlignment="Left" Margin="112,77,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
-		<ListBox x:Name="adsbPacketBox" Margin="10,117,10,0" FontFamily="Migu 1M" />
+		<ListBox x:Name="adsbPacketBox" Margin="10,117,9.716,10" FontFamily="Migu 1M" />
+		<ListBox x:Name="planeBox" Margin="10,117,10,10" FontFamily="Migu 1M" Grid.Column="1"  />
 
 	</Grid>
 </Window>

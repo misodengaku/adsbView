@@ -6,9 +6,9 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace adsbView_WPF
+namespace ADSB
 {
-	public class BeastData
+	public class ADSBStream
 	{
 		TcpClient client;
 		Stream tcpStream;
@@ -16,7 +16,7 @@ namespace adsbView_WPF
 		//byte[] dataBuffer = new byte[1024];
 		List<byte> dataBuffer = new List<byte>();
 
-		public BeastData(string host, int port)
+		public ADSBStream(string host, int port)
 		{
 			client = new TcpClient(host, port);
 			tcpStream = client.GetStream();
@@ -48,7 +48,7 @@ namespace adsbView_WPF
 				dataBuffer.Add(data);
 			}
 			return false;
-			
+
 		}
 	}
 }

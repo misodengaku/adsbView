@@ -15,6 +15,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ADSB;
+using System.Diagnostics;
+using System.Collections;
 
 namespace adsbView_WPF
 {
@@ -23,6 +26,8 @@ namespace adsbView_WPF
 	/// </summary>
 	public partial class MainWindow : Window
 	{
+		Hashtable planeTable = new Hashtable();
+
 		public MainWindow()
 		{
 			InitializeComponent();
@@ -32,7 +37,7 @@ namespace adsbView_WPF
 		{
 			Task.Factory.StartNew(() =>
 			{
-				var bs = new BeastData("localhost", 31001);
+				var bs = new ADSBStream("192.168.11.9", 31001);
 				while (true) {
 					var data = new byte[24];
 					if (bs.GetByteLine(data)){
@@ -43,12 +48,55 @@ namespace adsbView_WPF
 								break;
 							line += x.ToString("x2") + " ";
 						}
-						this.Dispatcher.BeginInvoke(new Action(() =>
+						if (line != "")
 						{
-							adsbPacketBox.Items.Add(line);
-						}));
+							this.Dispatcher.BeginInvoke(new Action(() =>
+							{
+								//adsbPacketBox.Items.Add(line);
+							}));
+						}
+						try
+						{
+							var d = new Data(data);
+							var str = "" + d.DataType;
+							ModeS s;
+							if (d.DataType == DataTypes.S_Long || d.DataType == DataTypes.S_Short)
+							{
+								s = new ModeS(d.DataFrame);
+								str = "" + d.DataType + "\t" + s.DownLinkType.ToString() + "\tICAO:" + s.ICAOCodeString + "\tAlt:" + s.Altitude;
+								planeTable[s.ICAOCodeString] = s;
+							}
+
+							try
+							{
+								
+								this.Dispatcher.BeginInvoke(new Action(() =>
+								{
+									adsbPacketBox.Items.Add(str);
+									planeBox.Items.Clear();
+									lock (planeTable)
+									{
+										foreach (ModeS i in planeTable.Values)
+										{
+											if (i.Altitude > 1)
+												planeBox.Items.Add(i.ICAOCodeString + "\t" + i.Altitude);
+										}
+									}
+									//planeBox.ItemsSource = planeTable;
+								}));
+							}
+							catch
+							{
+
+							}
+							//MessageBox.Show(str);
+						}
+						catch (Exception ex)
+						{
+							Debug.WriteLine("Broken packet " + ex.Message);
+						}
 					}
-					Thread.Sleep(100);
+					Thread.Sleep(10);
 				}
 			});
 

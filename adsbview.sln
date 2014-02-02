@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "adsbview", "adsbview\adsbvi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "adsbView-WPF", "adsbView-WPF\adsbView-WPF.csproj", "{B6430B44-2CAB-4072-8109-36F158A79908}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ADSB", "ADSB\ADSB.csproj", "{F0517068-1647-4D5F-8F37-B1F5F577810C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{B6430B44-2CAB-4072-8109-36F158A79908}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B6430B44-2CAB-4072-8109-36F158A79908}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B6430B44-2CAB-4072-8109-36F158A79908}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F0517068-1647-4D5F-8F37-B1F5F577810C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F0517068-1647-4D5F-8F37-B1F5F577810C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F0517068-1647-4D5F-8F37-B1F5F577810C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F0517068-1647-4D5F-8F37-B1F5F577810C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
